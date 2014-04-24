@@ -1,0 +1,100 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>eu.miman.build.parent.spring</groupId>
+	<artifactId>miman-spring-lib-parent</artifactId>
+	<version>1.0.0-RELEASE</version>
+	<packaging>pom</packaging>
+
+	<name>miman-spring-lib-parent</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<plantuml.plugin.version>7954</plantuml.plugin.version>
+		<wagon.plugin.version>2.6</wagon.plugin.version>
+		<doxia.plugin.version>1.5</doxia.plugin.version>
+		<java.version>1.7</java.version>
+		<spring.version>4.0.3.RELEASE</spring.version>
+	</properties>
+
+	<dependencies>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<!-- The PlantUML plugin is used to generate png-images of the present site puml files -->
+			<plugin>
+				<groupId>com.github.jeluard</groupId>
+				<artifactId>plantuml-maven-plugin</artifactId>
+				<version>${plantuml.plugin.version}</version>
+				<configuration>
+					<outputDirectory>${basedir}/target/site/uml</outputDirectory>
+					<sourceFiles>
+						<directory>${basedir}</directory>
+						<includes>
+							<include>src/site/uml/**/*.puml</include>
+						</includes>
+					</sourceFiles>
+				</configuration>
+				<executions>
+					<execution>
+						<id>plantuml</id>
+						<phase>pre-site</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Site documentation for APT files -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-descriptor</id>
+						<goals>
+							<goal>attach-descriptor</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<generateSitemap>true</generateSitemap>
+					<inputEncoding>UTF-8</inputEncoding>
+					<outputEncoding>UTF-8</outputEncoding>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.maven.wagon</groupId>
+						<artifactId>wagon-ssh</artifactId>
+						<version>${wagon.plugin.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.apache.maven.wagon</groupId>
+						<artifactId>wagon-file</artifactId>
+						<version>${wagon.plugin.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.apache.maven.doxia</groupId>
+						<artifactId>doxia-module-apt</artifactId>
+						<version>${doxia.plugin.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.apache.maven.doxia</groupId>
+						<artifactId>doxia-module-xhtml</artifactId>
+						<version>${doxia.plugin.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

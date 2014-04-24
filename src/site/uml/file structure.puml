@@ -1,0 +1,23 @@
+// The site for plantuml is found here
+// http://plantuml.sourceforge.net/
+
+@startuml site_folder_structure.png
+
+	package "src" {
+		node "site" {
+			node "apt" {
+				[APT documentation Files.apt]
+			} 
+			node "images" {
+				[Images]
+			} 
+			node "uml" {
+				[PlantUML_file.puml]
+			} 
+			[site.xml]
+		} 
+	}
+	 
+@enduml
+
+
