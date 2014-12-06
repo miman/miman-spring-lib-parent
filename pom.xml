@@ -4,7 +4,7 @@
 
 	<groupId>eu.miman.build.parent.spring</groupId>
 	<artifactId>miman-spring-lib-parent</artifactId>
-	<version>1.0.1-RELEASE</version>
+	<version>1.0.2-RELEASE</version>
 	<packaging>pom</packaging>
 
 	<name>miman-spring-lib-parent</name>
@@ -12,8 +12,11 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<plantuml.plugin.version>7954</plantuml.plugin.version>
-		<wagon.plugin.version>2.6</wagon.plugin.version>
-		<doxia.plugin.version>1.5</doxia.plugin.version>
+		<wagon.plugin.version>2.7</wagon.plugin.version>
+		<doxia.plugin.version>1.6</doxia.plugin.version>
+		<maven-site-plugin.version>3.4</maven-site-plugin.version>
+		<site.staging.localDirectory>/tmp/${reactor.name}</site.staging.localDirectory>		
+		<sourceforge.plantuml.version>8012</sourceforge.plantuml.version>
 		<java.version>1.7</java.version>
 		<spring.version>4.0.3.RELEASE</spring.version>
 		<junit.version>3.8.1</junit.version>
@@ -60,11 +63,19 @@
 						</goals>
 					</execution>
 				</executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>net.sourceforge.plantuml</groupId>
+                        <artifactId>plantuml</artifactId>
+                        <version>${sourceforge.plantuml.version}</version>
+                    </dependency>
+                </dependencies>				
 			</plugin>
 			<!-- Site documentation for APT files -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
+				<version>${maven-site-plugin.version}</version>
 				<executions>
 					<execution>
 						<id>attach-descriptor</id>
@@ -74,6 +85,7 @@
 					</execution>
 				</executions>
 				<configuration>
+					<stagingDirectory>${site.staging.localDirectory}</stagingDirectory>
 					<generateSitemap>true</generateSitemap>
 					<inputEncoding>UTF-8</inputEncoding>
 					<outputEncoding>UTF-8</outputEncoding>
